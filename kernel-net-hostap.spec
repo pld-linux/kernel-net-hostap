@@ -9,7 +9,7 @@ Summary(es):	Driveres del núcleo de HostAP
 Summary(pl):	Sterowniki HostAP dla j±dra Linuksa
 Name:		kernel-net-hostap
 Version:	0.2.2
-%define		rel	0.4
+%define		rel	0.5
 Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
@@ -58,7 +58,7 @@ Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
-Provides:	kernel-net-hostap
+Provides:	kernel-net-hostap = %{version}-%{release}
 
 %description -n kernel-smp-net-hostap
 HostAP kernel drivers. SMP version.
