@@ -1,4 +1,6 @@
-%define rel	0.3
+%define rel	0.4
+
+%define		no_install_post_compress_modules	1
 
 %bcond_without dist_kernel	# don't use a packaged kernel
 %bcond_without smp		# don't build the SMP modules
@@ -34,6 +36,19 @@ Módulos de núcleo para HostAP.
 %description -l pl
 Sterowniki HostAP dla j±dra Linuksa.
 
+%package -n kernel-pcmcia-net-hostap
+Summary:	HostAP PCMCIA kernel drivers
+Summary(pl):	Sterowniki HostAP PCMCIA dla j±dra Linuksa
+Requires:	kernel(pcmcia)
+Group:		Base/Kernel
+Requires(post,postun):	/sbin/depmod
+
+%description -n kernel-pcmcia-net-hostap
+HostAP PCMCIA kernel drivers.
+
+%description -l pl -n kernel-pcmcia-net-hostap
+Sterowniki HostAP PCMCIA dla j±dra Linuksa.
+
 %package -n kernel-smp-net-hostap
 Summary:	HostAP kernel drivers - SMP version
 Summary(es):	Driveres del núcleo de HostAP - versión SMP
@@ -42,7 +57,6 @@ Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %if %{with dist_kernel}
 %requires_releq_kernel_smp
-Requires:	kernel(pcmcia)
 %endif
 Requires(post,postun):	/sbin/depmod
 
@@ -54,6 +68,20 @@ Módulos de núcleo para HostAP. Versión SMP.
 
 %description -n kernel-smp-net-hostap -l pl
 Sterowniki HostAP dla j±dra Linuksa SMP.
+
+%package -n kernel-smp-pcmcia-net-hostap
+Summary:	HostAP kernel drivers - PCMCIA SMP version
+Summary(pl):	Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP
+Release:	%{rel}@%{_kernel_ver_str}
+Group:		Base/Kernel
+Requires:	kernel(pcmcia)
+Requires(post,postun):	/sbin/depmod
+
+%description -n kernel-smp-pcmcia-net-hostap
+HostAP kernel drivers. SMP version.
+
+%description -n kernel-smp-pcmcia-net-hostap -l pl
+Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP.
 
 %prep
 %setup -q -n hostap-driver-%{version}
@@ -85,16 +113,26 @@ touch include/config/MARKER
 %{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 modules
 mv *.ko ../../build-done/SMP/
 
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/kernel/drivers/{net,pcmcia}
 
 #kernel drivers
-cp -a kernel-up/lib/modules/%{_kernel_ver}/* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}
+cp -a build-done/UP/hostap.* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/net/
+cp -a build-done/UP/hostap_crypt* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/net/
+cp -a build-done/UP/hostap_plx.* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/net/
+
+cp -a build-done/UP/hostap_cs* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/pcmcia/
+cp -a build-done/UP/hostap_pci* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/kernel/drivers/pcmcia/
+
 %if %{with smp}
-cp -a kernel-smp/lib/modules/%{_kernel_ver}smp/* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp
+cp -a build-done/SMP/hostap.* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/net/
+cp -a build-done/SMP/hostap_crypt* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/net/
+cp -a build-done/SMP/hostap_plx.* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/net/
+
+cp -a build-done/SMP/hostap_cs** $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/pcmcia/
+cp -a build-done/SMP/hostap_pci* $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/pcmcia/
 %endif
 
 %post
@@ -103,10 +141,22 @@ cp -a kernel-smp/lib/modules/%{_kernel_ver}smp/* $RPM_BUILD_ROOT/lib/modules/%{_
 %preun
 %depmod %{_kernel_ver}
 
+%post -n kernel-pcmcia-net-hostap
+%depmod %{_kernel_ver}
+
+%postun -n kernel-pcmcia-net-hostap
+%depmod %{_kernel_ver}
+
 %post -n kernel-smp-net-hostap
 %depmod %{_kernel_ver}smp
 
 %postun -n kernel-smp-net-hostap
+%depmod %{_kernel_ver}smp
+
+%post -n kernel-smp-pcmcia-net-hostap
+%depmod %{_kernel_ver}smp
+
+%postun -n kernel-smp-pcmcia-net-hostap
 %depmod %{_kernel_ver}smp
 
 %clean
@@ -114,12 +164,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-/lib/modules/%{_kernel_ver}/net/*.o*
-/lib/modules/%{_kernel_ver}/pcmcia/*.o*
+/lib/modules/%{_kernel_ver}/kernel/drivers/net/*.ko
 
-%if %{with smp}
+%files -n kernel-pcmcia-net-hostap
+%defattr(644,root,root,755)
+/lib/modules/%{_kernel_ver}/kernel/drivers/pcmcia/*.ko
+
 %files -n kernel-smp-net-hostap
 %defattr(644,root,root,755)
-/lib/modules/%{_kernel_ver}smp/net/*.o*
-/lib/modules/%{_kernel_ver}smp/pcmcia/*.o*
-%endif
+/lib/modules/%{_kernel_ver}smp/kernel/drivers/net/*.ko
+
+%files -n kernel-smp-pcmcia-net-hostap
+%defattr(644,root,root,755)
+/lib/modules/%{_kernel_ver}smp/kernel/drivers/pcmcia/*.ko
