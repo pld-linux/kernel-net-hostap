@@ -190,8 +190,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with smp} && %{with dist_kernel}
 %files -n kernel-smp-net-hostap
-%doc ChangeLog README
 %defattr(644,root,root,755)
+%doc ChangeLog README
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/wireless/*.ko*
 
 %files -n kernel-smp-pcmcia-net-hostap
