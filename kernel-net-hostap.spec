@@ -1,4 +1,4 @@
-%define rel	0.1
+%define rel	0.2
 
 %define		no_install_post_compress_modules	1
 
@@ -95,19 +95,19 @@ ln -sf %{_kernelsrcdir}/config-up .config
 rm -rf include
 install -d include/{linux,config}
 ln -s %{_kernelsrcdir}/include/linux/autoconf.h include/linux/autoconf.h
-ln -s %{_kernelsrcdri}/include/asm-%{_arch} include/asm
+ln -s %{_kernelsrcdir}/include/asm-i386 include/asm
 touch include/config/MARKER
 
 %{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 modules
 mv *.ko ../../build-done/UP/
 
-%{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 mrproper
+#%{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 mrproper
 
 ln -sf %{_kernelsrcdir}/config-up .config
 rm -rf include
 install -d include/{linux,config}
 ln -s %{_kernelsrcdir}/include/linux/autoconf.h include/linux/autoconf.h
-ln -s %{_kernelsrcdri}/include/asm-%{_arch} include/asm
+ln -s %{_kernelsrcdir}/include/asm-i386 include/asm
 touch include/config/MARKER
 
 %{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 modules
