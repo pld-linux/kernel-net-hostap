@@ -14,6 +14,7 @@ Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://hostap.epitest.fi/releases/hostap-driver-%{version}.tar.gz
+# Source0-md5:	6f8f170890de12dd80fdc9ae73473998
 Patch0:		hostap-driver-complex.patch
 URL:		http://hostap.epitest.fi/
 BuildRequires:	%{kgcc_package}
