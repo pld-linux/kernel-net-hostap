@@ -23,7 +23,7 @@ BuildRequires:	kernel-headers
 %endif
 Requires:	kernel(pcmcia)
 Requires(post,postun):	/sbin/depmod
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 HostAP kernel drivers.
