@@ -9,29 +9,6 @@
  
  INCLUDES=-I$(KERNEL_PATH)/include
  ifdef PCMCIA_PATH
-@@ -198,14 +198,14 @@
- endif
- 
- install_check:
--	@if [ ! -d "$(MODPATH)" ]; then \
--		echo "Module installation directory not valid: '$(MODPATH)'"; \
--		echo -n "Most probable cause for this is modified kernel "; \
--		echo "headers."; \
--		echo -n "You will need to install module file "; \
--		echo "($(MSRC)/hostap*.{,k}o) manually."; \
--		exit 1; \
--	fi
-+#	@if [ ! -d "$(MODPATH)" ]; then \
-+#		echo "Module installation directory not valid: '$(MODPATH)'"; \
-+#		echo -n "Most probable cause for this is modified kernel "; \
-+#		echo "headers."; \
-+#		echo -n "You will need to install module file "; \
-+#		echo "($(MSRC)/hostap*.{,k}o) manually."; \
-+#		exit 1; \
-+#	fi
- 
- install_2.4: uninstall install_pccard install_pci install_plx
- 
 @@ -217,12 +217,6 @@
  	@if [ -r $(MODPATH)/kernel/drivers/net/wireless/hostap_crypt.ko ]; then \
  		echo "You may need to remove old $(MODPATH)/kernel/drivers/net/wireless/hostap_crypt.ko"; \
