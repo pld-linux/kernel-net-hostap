@@ -41,9 +41,9 @@ Summary(pl):	Sterowniki HostAP PCMCIA dla j±dra Linuksa
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_up}
-Requires:	kernel(pcmcia)
-Requires:	kernel-net-hostap
 Requires(post,postun):	/sbin/depmod
+Requires:	kernel(pcmcia)
+Requires:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 
 %description -n kernel-pcmcia-net-hostap
 HostAP PCMCIA kernel drivers.
@@ -59,7 +59,7 @@ Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
-Provides:	kernel-net-hostap = %{version}-%{release}
+Provides:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 
 %description -n kernel-smp-net-hostap
 HostAP kernel drivers. SMP version.
@@ -76,9 +76,9 @@ Summary(pl):	Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
-Requires:	kernel(pcmcia)
-Requires:	kernel-smp-net-hostap
 Requires(post,postun):	/sbin/depmod
+Requires:	kernel(pcmcia)
+Requires:	kernel-smp-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 
 %description -n kernel-smp-pcmcia-net-hostap
 HostAP kernel drivers. SMP version.
