@@ -88,11 +88,15 @@ Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP.
 Summary:        Header files for develop hostap driver based application
 Summary(pl):    Pliki nag³ówkowe do bibliotek hostap-driver
 Group:          Development/Libraries
-Requires:       %{name} = %{version}
+# doesn't require kernel modules
 
 %description devel
-This package includes the header files necessary to develop applications 
-that use hostap.
+This package includes the header files necessary to develop
+applications that use hostap.
+
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia aplikacji
+u¿ywaj±cych sterownika hostap.
 
 %prep
 %setup -q -n hostap-driver-%{version}
@@ -192,5 +196,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%dir %{_includedir}
 %{_includedir}/*.h
