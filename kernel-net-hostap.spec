@@ -59,7 +59,6 @@ Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 Provides:	kernel-net-hostap
-Obsoletes:	kernel-net-hostap
 
 %description -n kernel-smp-net-hostap
 HostAP kernel drivers. SMP version.
