@@ -9,7 +9,7 @@ Summary(es):	Driveres del núcleo de HostAP
 Summary(pl):	Sterowniki HostAP dla j±dra Linuksa
 Name:		kernel-net-hostap
 Version:	0.2.3
-%define		rel	1
+%define		rel	2
 Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
@@ -176,23 +176,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 %doc ChangeLog README
 /lib/modules/%{_kernel_ver}/kernel/drivers/net/wireless/*.ko*
 
 %files -n kernel-pcmcia-net-hostap
 %defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}/kernel/drivers/net/pcmcia/*.ko*
 
 %if %{with smp} && %{with dist_kernel}
 %files -n kernel-smp-net-hostap
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 %doc ChangeLog README
 %defattr(644,root,root,755)
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/wireless/*.ko*
 
 %files -n kernel-smp-pcmcia-net-hostap
 %defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/pcmcia/*.ko*
 %endif
 
