@@ -42,6 +42,7 @@ Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_up}
 Requires:	kernel(pcmcia)
+Requires:	kernel-net-hostap
 Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-pcmcia-net-hostap
@@ -76,6 +77,7 @@ Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires:	kernel(pcmcia)
+Requires:	kernel-smp-net-hostap
 Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-smp-pcmcia-net-hostap
