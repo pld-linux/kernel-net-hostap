@@ -9,7 +9,7 @@ Summary(es):	Driveres del núcleo de HostAP
 Summary(pl):	Sterowniki HostAP dla j±dra Linuksa
 Name:		kernel-net-hostap
 Version:	0.2.2
-%define		rel	0.3
+%define		rel	0.4
 Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
@@ -84,6 +84,16 @@ HostAP kernel drivers. SMP version.
 %description -n kernel-smp-pcmcia-net-hostap -l pl
 Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP.
 
+%package devel
+Summary:        Header files for develop hostap driver based application
+Summary(pl):    Pliki nag³ówkowe do bibliotek hostap-driver
+Group:          Development/Libraries
+Requires:       %{name} = %{version}
+
+%description devel
+This package includes the header files necessary to develop applications 
+that use hostap.
+
 %prep
 %setup -q -n hostap-driver-%{version}
 
@@ -113,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/kernel/drivers/net/{pcmcia,wireless}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/pcmcia
+install -d $RPM_BUILD_ROOT%{_includedir}
 
 install driver/etc/hostap_cs.conf \
 	$RPM_BUILD_ROOT%{_sysconfdir}/pcmcia
@@ -128,6 +139,7 @@ install smp/hostap{,_crypt*,_pci}.ko \
 install smp/hostap{_cs,_plx}.ko \
 	$RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/kernel/drivers/net/pcmcia
 %endif
+install ../*.h $RPM_BUILD_ROOT%{_includedir}
 
 %post
 %depmod %{_kernel_ver}
@@ -177,3 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/pcmcia/*.ko*
 %endif
+
+%files devel
+%defattr(644,root,root,755)
+%dir %{_includedir}
+%{_includedir}/*.h
