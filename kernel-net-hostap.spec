@@ -60,30 +60,31 @@ Sterowniki HostAP dla j±dra Linuksa SMP.
 %patch0 -p1
 
 %build
-grep -v "SMP" %{_kernelsrcdir}/.config > kernel-config.up
-cp kernel-config.up kernel-config.smp
-echo "CONFIG_SMP=y" >> kernel-config.smp
+rm -rf build-done
+install -d build-done/{UP,SMP}
+cd driver/modules
+ln -sf %{_kernelsrcdir}/config-up .config
+rm -rf include
+install -d include/{linux,config}
+ln -s %{_kernelsrcdir}/include/linux/autoconf.h include/linux/autoconf.h
+ln -s %{_kernelsrcdri}/include/asm-%{_arch} include/asm
+touch include/config/MARKER
 
-ln -sf kernel-config.up kernel-config
-mkdir -p kernel-up/lib/modules/%{_kernel_ver}
-%{__make} pccard plx pci crypt hostap \
-	install_pccard install_plx install_pci \
-	CC="%{kgcc}" \
-	KERNEL_PATH="%{_kernelsrcdir}" \
-	KERNELRELEASE=%{_kernel_ver} \
-	DESTDIR=$(pwd)/kernel-up
+%{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 modules
+mv *.ko ../../build-done/UP/
 
-%if %{with smp}
-ln -sf kernel-config.smp kernel-config
-mkdir -p kernel-smp/lib/modules/%{_kernel_ver}smp
-rm -f driver/modules/*.o	# UP modules
-%{__make} pccard plx pci crypt hostap \
-	install_pccard install_plx install_pci \
-	CC="%{kgcc} -D__KERNEL_SMP=1" \
-	KERNEL_PATH="%{_kernelsrcdir}" \
-	KERNELRELEASE=%{_kernel_ver}smp \
-	DESTDIR=$(pwd)/kernel-smp
-%endif
+%{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 mrproper
+
+ln -sf %{_kernelsrcdir}/config-up .config
+rm -rf include
+install -d include/{linux,config}
+ln -s %{_kernelsrcdir}/include/linux/autoconf.h include/linux/autoconf.h
+ln -s %{_kernelsrcdri}/include/asm-%{_arch} include/asm
+touch include/config/MARKER
+
+%{__make} -C %{_kernelsrcdir} SUBDIRS=$PWD O=$PWD V=1 modules
+mv *.ko ../../build-done/SMP/
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
