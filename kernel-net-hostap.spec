@@ -22,7 +22,6 @@ BuildRequires:	kernel-module-build >= 2.6.7
 %requires_releq_kernel_up
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.153
-Requires:	kernel(pcmcia)
 Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -183,10 +182,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README
 /lib/modules/%{_kernel_ver}/kernel/drivers/net/wireless/*.ko*
 
+%ifnarch sparc sparc64
 %files -n kernel-pcmcia-net-hostap
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}/kernel/drivers/net/pcmcia/*.ko*
+%endif
 
 %if %{with smp} && %{with dist_kernel}
 %files -n kernel-smp-net-hostap
@@ -194,10 +195,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/wireless/*.ko*
 
+%ifnarch sparc sparc64
 %files -n kernel-smp-pcmcia-net-hostap
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/pcmcia/*.ko*
+%endif
 %endif
 
 %files devel
