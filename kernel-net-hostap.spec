@@ -47,7 +47,7 @@ Requires:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 %description -n kernel-pcmcia-net-hostap
 HostAP PCMCIA kernel drivers.
 
-%description -l pl -n kernel-pcmcia-net-hostap
+%description -n kernel-pcmcia-net-hostap -l pl
 Sterowniki HostAP PCMCIA dla j±dra Linuksa.
 
 %package -n kernel-smp-net-hostap
