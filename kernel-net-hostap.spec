@@ -8,13 +8,13 @@ Summary:	HostAP kernel drivers
 Summary(es):	Driveres del núcleo de HostAP
 Summary(pl):	Sterowniki HostAP dla j±dra Linuksa
 Name:		kernel-net-hostap
-Version:	0.2.4
+Version:	0.4.0
 %define		rel	1
 Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
 Source0:	http://hostap.epitest.fi/releases/hostap-driver-%{version}.tar.gz
-# Source0-md5:	342f0c94072e90c9a5d775f6e68532af
+# Source0-md5:	aceb13fcdbe7c59b36318c2444346a27
 URL:		http://hostap.epitest.fi/
 BuildRequires:	%{kgcc_package}
 %if %{with dist_kernel}
