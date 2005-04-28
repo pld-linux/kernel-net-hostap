@@ -15,6 +15,7 @@ License:	GPL v2
 Group:		Base/Kernel
 Source0:	http://hostap.epitest.fi/releases/hostap-driver-%{version}.tar.gz
 # Source0-md5:	aceb13fcdbe7c59b36318c2444346a27
+Patch0:		%{name}-flash.patch
 URL:		http://hostap.epitest.fi/
 BuildRequires:	%{kgcc_package}
 %if %{with dist_kernel}
@@ -101,6 +102,7 @@ u¿ywaj±cych sterownika hostap.
 
 %prep
 %setup -q -n hostap-driver-%{version}
+%patch0 -p0
 
 %build
 cd driver/modules
