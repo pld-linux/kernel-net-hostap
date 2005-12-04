@@ -87,9 +87,9 @@ HostAP kernel drivers. SMP version.
 Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP.
 
 %package devel
-Summary:        Header files for develop hostap driver based application
-Summary(pl):    Pliki nag³ówkowe do bibliotek hostap-driver
-Group:          Development/Libraries
+Summary:	Header files for develop hostap driver based application
+Summary(pl):	Pliki nag³ówkowe do bibliotek hostap-driver
+Group:		Development/Libraries
 # doesn't require kernel modules
 
 %description devel
@@ -137,7 +137,7 @@ install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/kernel/drivers/net/{
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/pcmcia
 install -d $RPM_BUILD_ROOT%{_includedir}
 
-install driver/etc/hostap_cs.conf \
+install driver%{_sysconfdir}/hostap_cs.conf \
 	$RPM_BUILD_ROOT%{_sysconfdir}/pcmcia
 
 cd driver/modules/built
@@ -188,7 +188,7 @@ rm -rf $RPM_BUILD_ROOT
 %ifnarch sparc sparc64
 %files -n kernel-pcmcia-net-hostap
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}/kernel/drivers/net/pcmcia/*.ko*
 %endif
 
@@ -201,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 %ifnarch sparc sparc64
 %files -n kernel-smp-pcmcia-net-hostap
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pcmcia/hostap_cs.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/pcmcia/hostap_cs.conf
 /lib/modules/%{_kernel_ver}smp/kernel/drivers/net/pcmcia/*.ko*
 %endif
 %endif
