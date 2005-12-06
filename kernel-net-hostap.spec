@@ -87,7 +87,7 @@ HostAP kernel drivers. SMP version.
 Sterowniki HostAP PCMCIA dla j±dra Linuksa SMP.
 
 %package devel
-Summary:	Header files for develop hostap driver based application
+Summary:	Header files for developing hostap driver based applications
 Summary(pl):	Pliki nag³ówkowe do bibliotek hostap-driver
 Group:		Development/Libraries
 # doesn't require kernel modules
