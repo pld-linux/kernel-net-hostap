@@ -4,12 +4,12 @@
 %bcond_without	smp		# don't build SMP module
 %bcond_with	verbose		# verbose build (V=1)
 #
+%define		rel	1
 Summary:	HostAP kernel drivers
 Summary(es):	Driveres del núcleo de HostAP
 Summary(pl):	Sterowniki HostAP dla j±dra Linuksa
 Name:		kernel-net-hostap
 Version:	0.4.0
-%define		rel	1
 Release:	%{rel}@%{_kernel_ver_str}
 License:	GPL v2
 Group:		Base/Kernel
@@ -19,7 +19,7 @@ Patch0:		%{name}-flash.patch
 URL:		http://hostap.epitest.fi/
 BuildRequires:	%{kgcc_package}
 %if %{with dist_kernel}
-BuildRequires:	kernel-module-build >= 2.6.7
+BuildRequires:	kernel-module-build >= 3:2.6.7
 %requires_releq_kernel_up
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.153
@@ -109,25 +109,25 @@ cd driver/modules
 rm -rf built
 mkdir -p built/{nondist,smp,up}
 for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}; do
-    if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
-	exit 1
-    fi
-    rm -rf include
-    install -d include/{linux,config}
-    ln -sf %{_kernelsrcdir}/config-$cfg .config
-    ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h include/linux/autoconf.h
-    ln -sf %{_kernelsrcdir}/include/asm-%{_target_base_arch} include/asm
-    ln -sf %{_kernelsrcdir}/Module.symvers-$cfg Module.symvers
-    touch include/config/MARKER
-    %{__make} -C %{_kernelsrcdir} clean \
-        RCS_FIND_IGNORE="-name '*.ko' -o" \
-        M=$PWD O=$PWD \
-        %{?with_verbose:V=1}
-    %{__make} -C %{_kernelsrcdir} modules \
-        CC="%{__cc}" CPP="%{__cpp}" \
-        M=$PWD O=$PWD \
-        %{?with_verbose:V=1}
-    mv *.ko built/$cfg
+	if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
+		exit 1
+	fi
+	rm -rf include
+	install -d include/{linux,config}
+	ln -sf %{_kernelsrcdir}/config-$cfg .config
+	ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h include/linux/autoconf.h
+	ln -sf %{_kernelsrcdir}/include/asm-%{_target_base_arch} include/asm
+	ln -sf %{_kernelsrcdir}/Module.symvers-$cfg Module.symvers
+	touch include/config/MARKER
+	%{__make} -C %{_kernelsrcdir} clean \
+		RCS_FIND_IGNORE="-name '*.ko' -o" \
+		M=$PWD O=$PWD \
+		%{?with_verbose:V=1}
+	%{__make} -C %{_kernelsrcdir} modules \
+		CC="%{__cc}" CPP="%{__cpp}" \
+		M=$PWD O=$PWD \
+		%{?with_verbose:V=1}
+	mv *.ko built/$cfg
 done
 
 %install
