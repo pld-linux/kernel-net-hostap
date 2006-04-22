@@ -138,8 +138,8 @@ for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}
                 M=$PWD O=$PWD/o \
                 %{?with_verbose:V=1}
 
-#        mv hostap.ko modules/$cfg/
-	mv hostap{,-$cfg}.ko
+	mkdir -p built/$cfg
+	mv hostap*.ko built/$cfg/
 done
 
 %install
