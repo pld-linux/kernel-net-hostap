@@ -108,36 +108,35 @@ u¿ywaj±cych sterownika hostap.
 # kernel module(s)
 cd driver/modules
 for cfg in %{?with_dist_kernel:%{?with_smp:smp} up}%{!?with_dist_kernel:nondist}; do
-        if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
-                exit 1
-        fi
-        install -d o/include/linux
-        ln -sf %{_kernelsrcdir}/config-$cfg o/.config
-        ln -sf %{_kernelsrcdir}/Module.symvers-$cfg o/Module.symvers
-        ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h o/include/linux/autoconf.h
+	if [ ! -r "%{_kernelsrcdir}/config-$cfg" ]; then
+		exit 1
+	fi
+	install -d o/include/linux
+	ln -sf %{_kernelsrcdir}/config-$cfg o/.config
+	ln -sf %{_kernelsrcdir}/Module.symvers-$cfg o/Module.symvers
+	ln -sf %{_kernelsrcdir}/include/linux/autoconf-$cfg.h o/include/linux/autoconf.h
 %if %{with dist_kernel}
-        %{__make} -C %{_kernelsrcdir} O=$PWD/o prepare scripts
+	%{__make} -C %{_kernelsrcdir} O=$PWD/o prepare scripts
 %else
-        install -d o/include/config
-        touch o/include/config/MARKER
-        ln -sf %{_kernelsrcdir}/scripts o/scripts
+	install -d o/include/config
+	touch o/include/config/MARKER
+	ln -sf %{_kernelsrcdir}/scripts o/scripts
 %endif
 #
-#       patching/creating makefile(s) (optional)
+#	patching/creating makefile(s) (optional)
 #
-        %{__make} -C %{_kernelsrcdir} clean \
-                RCS_FIND_IGNORE="-name '*.ko' -o" \
-                SYSSRC=%{_kernelsrcdir} \
-                SYSOUT=$PWD/o \
-                M=$PWD O=$PWD/o \
-                %{?with_verbose:V=1}
-        %{__make} -C %{_kernelsrcdir} modules \
-                CC="%{__cc}" CPP="%{__cpp}" \
-                SYSSRC=%{_kernelsrcdir} \
-                SYSOUT=$PWD/o \
-                M=$PWD O=$PWD/o \
-                %{?with_verbose:V=1}
-
+	%{__make} -C %{_kernelsrcdir} clean \
+		RCS_FIND_IGNORE="-name '*.ko' -o" \
+		SYSSRC=%{_kernelsrcdir} \
+		SYSOUT=$PWD/o \
+		M=$PWD O=$PWD/o \
+		%{?with_verbose:V=1}
+	%{__make} -C %{_kernelsrcdir} modules \
+		CC="%{__cc}" CPP="%{__cpp}" \
+		SYSSRC=%{_kernelsrcdir} \
+		SYSOUT=$PWD/o \
+		M=$PWD O=$PWD/o \
+		%{?with_verbose:V=1}
 	mkdir -p built/$cfg
 	mv hostap*.ko built/$cfg/
 done
