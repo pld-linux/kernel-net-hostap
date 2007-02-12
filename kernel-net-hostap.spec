@@ -6,8 +6,8 @@
 #
 %define		rel	0.1
 Summary:	HostAP kernel drivers
-Summary(es):	Driveres del n鷆leo de HostAP
-Summary(pl):	Sterowniki HostAP dla j眃ra Linuksa
+Summary(es.UTF-8):   Driveres del n煤cleo de HostAP
+Summary(pl.UTF-8):   Sterowniki HostAP dla j膮dra Linuksa
 Name:		kernel-net-hostap
 Version:	0.4.7
 Release:	%{rel}@%{_kernel_ver_str}
@@ -29,15 +29,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 HostAP kernel drivers.
 
-%description -l es
-M骴ulos de n鷆leo para HostAP.
+%description -l es.UTF-8
+M贸dulos de n煤cleo para HostAP.
 
-%description -l pl
-Sterowniki HostAP dla j眃ra Linuksa.
+%description -l pl.UTF-8
+Sterowniki HostAP dla j膮dra Linuksa.
 
 %package -n kernel-pcmcia-net-hostap
 Summary:	HostAP PCMCIA kernel drivers
-Summary(pl):	Sterowniki HostAP PCMCIA dla j眃ra Linuksa
+Summary(pl.UTF-8):   Sterowniki HostAP PCMCIA dla j膮dra Linuksa
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_up}
@@ -48,13 +48,13 @@ Requires:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 %description -n kernel-pcmcia-net-hostap
 HostAP PCMCIA kernel drivers.
 
-%description -n kernel-pcmcia-net-hostap -l pl
-Sterowniki HostAP PCMCIA dla j眃ra Linuksa.
+%description -n kernel-pcmcia-net-hostap -l pl.UTF-8
+Sterowniki HostAP PCMCIA dla j膮dra Linuksa.
 
 %package -n kernel-smp-net-hostap
 Summary:	HostAP kernel drivers - SMP version
-Summary(es):	Driveres del n鷆leo de HostAP - versi髇 SMP
-Summary(pl):	Sterowniki HostAP dla j眃ra Linuksa SMP
+Summary(es.UTF-8):   Driveres del n煤cleo de HostAP - versi贸n SMP
+Summary(pl.UTF-8):   Sterowniki HostAP dla j膮dra Linuksa SMP
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
@@ -64,15 +64,15 @@ Provides:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 %description -n kernel-smp-net-hostap
 HostAP kernel drivers. SMP version.
 
-%description -n kernel-net-hostap -l es
-M骴ulos de n鷆leo para HostAP. Versi髇 SMP.
+%description -n kernel-net-hostap -l es.UTF-8
+M贸dulos de n煤cleo para HostAP. Versi贸n SMP.
 
-%description -n kernel-smp-net-hostap -l pl
-Sterowniki HostAP dla j眃ra Linuksa SMP.
+%description -n kernel-smp-net-hostap -l pl.UTF-8
+Sterowniki HostAP dla j膮dra Linuksa SMP.
 
 %package -n kernel-smp-pcmcia-net-hostap
 Summary:	HostAP kernel drivers - PCMCIA SMP version
-Summary(pl):	Sterowniki HostAP PCMCIA dla j眃ra Linuksa SMP
+Summary(pl.UTF-8):   Sterowniki HostAP PCMCIA dla j膮dra Linuksa SMP
 Release:	%{rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
@@ -83,12 +83,12 @@ Requires:	kernel-smp-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 %description -n kernel-smp-pcmcia-net-hostap
 HostAP kernel drivers. SMP version.
 
-%description -n kernel-smp-pcmcia-net-hostap -l pl
-Sterowniki HostAP PCMCIA dla j眃ra Linuksa SMP.
+%description -n kernel-smp-pcmcia-net-hostap -l pl.UTF-8
+Sterowniki HostAP PCMCIA dla j膮dra Linuksa SMP.
 
 %package devel
 Summary:	Header files for developing hostap driver based applications
-Summary(pl):	Pliki nag丑wkowe do bibliotek hostap-driver
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe do bibliotek hostap-driver
 Group:		Development/Libraries
 # doesn't require kernel modules
 
@@ -96,9 +96,9 @@ Group:		Development/Libraries
 This package includes the header files necessary to develop
 applications that use hostap.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag丑wkowe potrzebne do tworzenia aplikacji
-u縴waj眂ych sterownika hostap.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nag艂贸wkowe potrzebne do tworzenia aplikacji
+u偶ywaj膮cych sterownika hostap.
 
 %prep
 %setup -q -n hostap-driver-%{version}
