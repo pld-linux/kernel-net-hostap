@@ -64,7 +64,7 @@ Provides:	kernel-net-hostap = %{version}-%{rel}@%{_kernel_ver_str}
 %description -n kernel-smp-net-hostap
 HostAP kernel drivers. SMP version.
 
-%description -n kernel-net-hostap -l es.UTF-8
+%description -n kernel-smp-net-hostap -l es.UTF-8
 Módulos de núcleo para HostAP. Versión SMP.
 
 %description -n kernel-smp-net-hostap -l pl.UTF-8
