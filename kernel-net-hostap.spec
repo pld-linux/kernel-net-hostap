@@ -102,7 +102,7 @@ używających sterownika hostap.
 
 %prep
 %setup -q -n hostap-driver-%{version}
-%patch0 -p0
+%patch -P0 -p0
 
 %build
 # kernel module(s)
